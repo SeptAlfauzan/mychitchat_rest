@@ -1,18 +1,36 @@
-GET http://localhost:6969/users
+GET http://localhost:3000/users
 ###
-POST http://localhost:6969/users
+POST http://localhost:3000/users
 Content-Type: application/json
 
 {
     "name": "Septa",
-    "password": "mypassword"
+    "email": "alfauzansepta@gmail.com",
+    "username": "septa as",
+    "password": "mypassword",
+    "profile_pic": "",
+    "verified": false
 }
 ###
-POST http://localhost:6969/users/login
+POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "name": "Septa",
+    "username_email": "alfauzansepta@gmail.com",
     "password": "mypassword"
 }
 ###
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "username_email": "septa",
+    "password": "mypassworda"
+}
+###
+DELETE   http://localhost:3000/users/5f17a884228b4317d554ce3c
+###
+
+PUT   http://localhost:3000/users/verify/5f17a884228b4317d554ce3c
+###
+GET   http://localhost:3000/emails

@@ -1,21 +1,30 @@
 const express = require('express');
 const app = express();
-const loginRoutes = require('./routes/login_routes');
+const mongoose = require('mongoose');
 const userRoutes = require('./routes/user_routes');
-const chatRoutes = require('./routes/chat_routes');
-const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
+// add dotenv to store secret thing
+require('dotenv').config();
+
+// const bcrypt = require('bcrypt');
+
+mongoose.connect( process.env.DB_HOST, {
+    dbName: process.env.DB_NAME,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then((res)=>{
+    console.log('connect to database');
+    app.listen(process.env.PORT);
+}).catch((err)=>{
+    console.log(err);
+})
 
 app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-const users = [];
-
-// routes
-// app.use('/users', userRoutes);
-// app.use('/chat', chatRoutes);
 
 app.get('/', (req, res) => {
+    // full link path
     console.log(req.protocol + '://' + req.get('host') + req.originalUrl)
 })
 
@@ -32,14 +41,14 @@ app.get('/emails', (req, res) => {
         let transporter = nodemailer.createTransport({
             service: 'gmail', // true for 465, false for other ports
             auth: {
-                user: "my.chitchat.io@gmail.com", // generated ethereal user
-                pass: "septa@mychitchat", // generated ethereal password
+                user: process.env.GMAIL_USERNAME, // generated ethereal user
+                pass: process.env.GMAIL_PASSWORD, // generated ethereal password
             },
         });
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-            from: '"My ChitChat" <my.chitchat.io@gmail.com>', // sender address
+            from: '"My ChitChat" <'+ process.env.GMAIL_USERNAME +'>', // sender address
             to: "alfauzansepta@gmail.com", // list of receivers
             subject: "Please verify your account", // Subject line
             text: "cick here", // plain text body
@@ -58,30 +67,10 @@ app.get('/emails', (req, res) => {
 
 })
 
-// register
-app.get('/users', (req, res) => {
-    res.json(users);
-})
-app.post('/users', async (req, res) => {
-    try {
-        const salt = await bcrypt.genSalt()
-        const hashPassword = await bcrypt.hash(req.body.password, salt)
-        console.log(salt);
-        console.log(hashPassword);
-        const user = { name: req.body.name, password: hashPassword }
-        console.log(user);
-        users.push(user);
-        res.status(201).send(users)
-    } catch (error) {
-        res.status(500);
-        console.log(error);
-    }
-})
+// users
+app.use('/users', userRoutes);
 
-// login
-app.use('/users/login', loginRoutes);
+// app.use((req, res) => {
+//     res.status(404).send('what are you looking for!!')
+// })
 
-app.use((req, res) => {
-    res.status(404).send('what are you looking for!!')
-})
-app.listen(3000);
