@@ -12,6 +12,18 @@ Content-Type: application/json
     "verified": false
 }
 ###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "Septa",
+    "email": "septagamer@gmail.com",
+    "username": "septa keren",
+    "password": "mypassword",
+    "profile_pic": "",
+    "verified": false
+}
+###
 POST http://localhost:3000/users/login
 Content-Type: application/json
 
@@ -28,9 +40,11 @@ Content-Type: application/json
     "password": "mypassworda"
 }
 ###
-DELETE   http://localhost:3000/users/5f17a884228b4317d554ce3c
+DELETE   http://localhost:3000/users/5f17e89a5551306480b47c3e
 ###
 
 PUT   http://localhost:3000/users/verify/5f17a884228b4317d554ce3c
 ###
 GET   http://localhost:3000/emails
+###
+http://localhost:3000/users/verify/5f17e89a5551306480b47c3e
