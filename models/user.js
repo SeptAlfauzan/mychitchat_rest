@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const userSchema = new schema({
-    name: {
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
         type: String,
         required: true
     },
@@ -13,7 +17,6 @@ const userSchema = new schema({
     username: {
         type: String,
         required: true,
-        maxlength: 20
     },
     password: {
         type: String,
@@ -25,8 +28,9 @@ const userSchema = new schema({
         required: false
     },
     verified: {
+        default: false,
         type: Boolean,
-        required: true
+        // required: true
     }
 }, { timestamps: true, autoIndex: true });
 

@@ -35,13 +35,15 @@ const email_verification = (name, email_reciver, url_verfify)=>{
                         <h2 style="font-size: 30px; color: #121212">my.chichat</h2>
                     </div>
 
-                    <h3 style="font-size: 27px; color: #121212" align="center">${name}, please verify your email account</h3>
+                        <h3 style="font-size: 27px; color: #121212" align="center">${name}, please verify your email account</h3>
 
-                    <p style="font-size: 18px; color: #121212" align="center">Click button bellow to verify your account&nbsp;</p>
-
-                    <div style="border-collapse: separate !important;border-radius: 7px;background-color: #00B4BA; width: 200px; text-align: center; margin: auto">
-                        <a class="mcnButton " title="verify account" href="${url_verfify}" target="_blank" style="font-family: Helvetica; font-size: 18px; padding: 18px; display: block;font-weight: bold;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">verify account</a>
-                    </div>
+                        <p style="font-size: 18px; color: #121212" align="center">Click button bellow to verify your account&nbsp;</p>
+                        
+                        <form action="${url_verfify}?_method=PUT" method="post">
+                            <button type="submit" style="border-collapse: separate !important;border-radius: 7px;background-color: #00B4BA; width: 200px; text-align: center; margin: auto; font-family: Helvetica; font-size: 18px; padding: 18px; display: block;font-weight: bold;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">
+                                verify account
+                            </button>
+                        </form>
                     </div>
 
             `, // html body

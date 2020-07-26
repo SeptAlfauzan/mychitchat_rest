@@ -15,18 +15,33 @@ mongoose.connect( process.env.DB_HOST, {
     useUnifiedTopology: true
 }).then((res)=>{
     console.log('connect to database');
+    console.log(process.env.PORT);
     app.listen(process.env.PORT);
 }).catch((err)=>{
     console.log(err);
 })
 
+const errHandlerMulter = (err, req, res, next)=>{
+    if (err instanceof multer.MulterError) {
+        res.json({
+            message: err.message
+        })
+    }
+}
+
 app.set('view engine', 'ejs')
+// set static path for avatar image
+app.use('/profile', express.static(`${__dirname}/upload/images/avatars`))
 app.use(express.json())
-app.use(methodOverride())
+app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
+
+const cors = require('cors')
+// app.use(cors());
 
 app.get('/', (req, res) => {
     // full link path
+    res.send('ok');
     console.log(req.protocol + '://' + req.get('host') + req.originalUrl)
 })
 
@@ -90,6 +105,7 @@ app.get('/emails', (req, res) => {
     main().catch(console.error);
 
 })
+// delete before deploy it
 
 // users
 app.use('/users', userRoutes);

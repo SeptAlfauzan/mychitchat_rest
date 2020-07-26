@@ -1,12 +1,13 @@
-GET http://localhost:3000/users
+GET http://localhost:4000/users
 ###
-POST http://localhost:3000/users
+POST http://localhost:4000/users
 Content-Type: application/json
 
 {
-    "name": "Septa",
-    "email": "alfauzansepta@gmail.com",
-    "username": "septa as",
+    "firstName": "Septa",
+    "lastName": "Septa",
+    "email": "alfauzansepta@gmail.comasdasda",
+    "username": "septaalfauzan",
     "password": "mypassword",
     "profile_pic": "",
     "verified": false
@@ -40,11 +41,11 @@ Content-Type: application/json
     "password": "mypassworda"
 }
 ###
-DELETE   http://localhost:3000/users/5f17e89a5551306480b47c3e
+DELETE   http://localhost:4000/users/5f1d19f7f66c385fc2065229
 ###
 
 PUT   http://localhost:3000/users/verify/5f17a884228b4317d554ce3c
 ###
 GET   http://localhost:3000/emails
 ###
-http://localhost:3000/users/verify/5f17e89a5551306480b47c3e
+PUT http://localhost:4000/users/verify/5f1d17fef66c385fc2065227
