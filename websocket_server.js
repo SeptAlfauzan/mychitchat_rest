@@ -23,10 +23,14 @@ wss.on('connection', (ws, req) =>{
 
 })
 
-const socketServer = {
-    run: server.listen(process.env.PORT || 4000, () => {
-        console.log('websocket server is running :)');
-    })
-} 
+// const socketServer = {
+//     run: server.listen(process.env.PORT || 4000, () => {
+//         console.log('websocket server is running :)');
+//     })
+// } 
 
-module.exports = {socketServer: socketServer};
+// module.exports = {socketServer: socketServer};
+
+server.listen(process.env.PORT || 4000, () => {
+    console.log('websocket server is running :)');
+})
