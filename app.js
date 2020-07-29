@@ -12,7 +12,7 @@ const methodOverride = require('method-override');
 require('dotenv').config();
 // const bcrypt = require('bcrypt');
 
-const { socketServer } = require('./websocket_server');
+// const { socketServer } = require('./websocket_server');
 
 // mongoose.connect( process.env.DB_HOST, {
 //     dbName: process.env.DB_NAME,
@@ -20,11 +20,11 @@ const { socketServer } = require('./websocket_server');
 //     useUnifiedTopology: true
 // }).then((res)=>{
 //     console.log('connect to database');
-//     console.log(process.env.PORT);
-    app.listen(process.env.PORT || 4000);
+//     // console.log(process.env.PORT);
+//     // app.listen(process.env.PORT);
 
-    socketServer.run;
-    // run the websocket server
+//     // socketServer.run;
+//     // run the websocket server
 // }).catch((err)=>{
 //     console.log(err);
 // })
@@ -128,3 +128,4 @@ app.use('/users', userRoutes);
 //     res.status(404).send('what are you looking for!!')
 // })
 
+module.exports = app;
