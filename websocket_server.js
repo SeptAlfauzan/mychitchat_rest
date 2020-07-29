@@ -21,7 +21,7 @@ wss.on('connection', (ws, req) =>{
 })
 
 const socketServer = {
-    run: server.listen(port, () => {
+    run: server.listen(process.env.WEBSOCKET || port, () => {
         console.log('websocket server is running :)');
     })
 } 
