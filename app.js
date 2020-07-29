@@ -3,11 +3,16 @@ const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user_routes');
 const nodemailer = require('nodemailer');
+
+const http = require('http');
+const server = http.createServer(express);
+
 const methodOverride = require('method-override');
 // add dotenv to store secret thing
 require('dotenv').config();
-
 // const bcrypt = require('bcrypt');
+
+const { socketServer } = require('./websocket_server');
 
 mongoose.connect( process.env.DB_HOST, {
     dbName: process.env.DB_NAME,
@@ -16,7 +21,10 @@ mongoose.connect( process.env.DB_HOST, {
 }).then((res)=>{
     console.log('connect to database');
     console.log(process.env.PORT);
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT || 4000);
+
+    socketServer.run;
+    // run the websocket server
 }).catch((err)=>{
     console.log(err);
 })
@@ -29,20 +37,26 @@ const errHandlerMulter = (err, req, res, next)=>{
     }
 }
 
+
 app.set('view engine', 'ejs')
 // set static path for avatar image
 app.use('/profile', express.static(`${__dirname}/upload/images/avatars`))
 app.use(express.json())
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
-
+// require and enable cors
 const cors = require('cors')
-// app.use(cors());
+app.use(cors());
 
 app.get('/', (req, res) => {
     // full link path
     res.send('ok');
     console.log(req.protocol + '://' + req.get('host') + req.originalUrl)
+})
+
+// chat room page
+app.get('/chat/chat-room', (req, res) => {
+    res.render('chat/index');
 })
 
 app.get('/emails', (req, res) => {
