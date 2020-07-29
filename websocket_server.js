@@ -1,17 +1,13 @@
 const express = require('express');
-const WebSocket = require('ws').Server;
-const http = require('http');
-const port = 4030;
-const server = http.createServer();
-const app = require('./app');
-// const wss = new webSocket.Server({ server })
+const webSocket = require('ws');
+let server = require('http').createServer();
+let app = require('./app');
 
-const wss = new WebSocket({
+let wss = new webSocket.Server({
+
     server: server
-})
-
-// mount app on server
-server.on('request', app)
+  });
+server.on('request', app);
 
 wss.on('connection', (ws, req) =>{
     ws.on('message', (data)=>{
@@ -22,16 +18,14 @@ wss.on('connection', (ws, req) =>{
             }
         })
     })
+
+
 })
 
-// const socketServer = {
-//     run: server.listen(port, () => {
-//         console.log('websocket server is running :)');
-//     })
-// } 
+const socketServer = {
+    run: server.listen(process.env.PORT || 4000, () => {
+        console.log('websocket server is running :)');
+    })
+} 
 
-// module.exports = {socketServer: socketServer};
-
-server.listen(process.env.PORT, () => {
-    console.log('websocket server is running :)');
-})
+module.exports = {socketServer: socketServer};
