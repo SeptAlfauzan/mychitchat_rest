@@ -2,6 +2,7 @@ const express = require('express');
 const webSocket = require('ws');
 let server = require('http').createServer();
 let app = require('./app');
+require('dotenv').config();
 
 let wss = new webSocket.Server({
 
