@@ -14,20 +14,20 @@ require('dotenv').config();
 
 const { socketServer } = require('./websocket_server');
 
-mongoose.connect( process.env.DB_HOST, {
-    dbName: process.env.DB_NAME,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then((res)=>{
-    console.log('connect to database');
-    console.log(process.env.PORT);
+// mongoose.connect( process.env.DB_HOST, {
+//     dbName: process.env.DB_NAME,
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }).then((res)=>{
+//     console.log('connect to database');
+//     console.log(process.env.PORT);
     app.listen(process.env.PORT || 4000);
 
     socketServer.run;
     // run the websocket server
-}).catch((err)=>{
-    console.log(err);
-})
+// }).catch((err)=>{
+//     console.log(err);
+// })
 
 const errHandlerMulter = (err, req, res, next)=>{
     if (err instanceof multer.MulterError) {
